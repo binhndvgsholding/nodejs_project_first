@@ -9,5 +9,8 @@ class NewsController {
     test(){
         res.send('Hello fpt polytechnic!')
     }
+    test2(){
+        res.send('Hello fpt polytechnic!')
+    }
 }
 module.exports =new NewsController
