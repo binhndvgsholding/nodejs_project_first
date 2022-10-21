@@ -1,3 +1,4 @@
+const sql = require('../../config/db');
 class News {
  
     index(){
