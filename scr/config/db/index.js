@@ -5,15 +5,22 @@
 //   PASSWORD:  process.env.DB_PASSWORD,
 //   database: "your_database"
 // }
-const mysql = require('mysql');
-const connection = mysql.createConnection({
-    host: "localhost",
-    user: "root",
-    password: "",
-    database: "node_first"
-  });
-  connection.connect(function(err) {
-    if (err) throw err;
-    console.log("ok r binh!!!")
-  });
-module.exports = connection
+const mysql = require("mysql");
+const migration = require("mysql-migrations");
+const connection = mysql.createPool({
+  connectionLimit: 10,
+  host: "localhost",
+  user: "root",
+  password: "",
+  database: "node_first",
+});
+migration.init(
+  connection,
+  __dirname + "/migrations",
+  function () {
+    console.log("finished running migrations");
+  },
+  ["--migrate-all"]
+);
+
+module.exports = connection;
