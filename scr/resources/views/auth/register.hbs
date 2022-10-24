@@ -38,35 +38,42 @@
                             </div>
                          
                          
-                             {{#each haha}}
-    <li>{{this.name}}</li>
-        <li>{{this.age}}</li>
-  {{/each}}
+       
                             <form class="user" method="post" action="/auth/postRegister" enctype="multipart/form-data" >
                                 <div class="form-group row">
                                     <div class="col-sm-6 mb-3 mb-sm-0">
-                                        <input type="text" name="name" class="form-control form-control-user" id="exampleFirstName"
+                                        <input type="text" name="name" value="{{old.name}}" class="form-control form-control-user" id="exampleFirstName"
                                             placeholder="First Name">
+                         
                                     </div>
                                     <div class="col-sm-6">
-                                        <input type="text" name="phone" class="form-control form-control-user" id="exampleLastName"
+                                        <input type="text" name="phone" value="{{old.phone}}" class="form-control form-control-user" id="exampleLastName"
                                             placeholder="Phone Number">
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <input type="email" name="email" class="form-control form-control-user" id="exampleInputEmail"
+                                    <input type="email" name="email" value="{{old.email}}" class="form-control form-control-user" id="exampleInputEmail"
                                         placeholder="Email Address">
                                 </div>
                                 <div class="form-group row">
                                     <div class="col-sm-6 mb-3 mb-sm-0">
-                                        <input type="password" name="pass" class="form-control form-control-user"
+                                        <input type="password" name="pass" value="{{old.pass}}" class="form-control form-control-user"
                                             id="exampleInputPassword" placeholder="Password">
                                     </div>
                                     <div class="col-sm-6">
-                                        <input type="file" name="img" class="form-control form-control-user"
+                                        <input type="file" name="img"  class="form-control form-control-user"
                                             id="" placeholder="Repeat Password">
                                     </div>
                                 </div>
+                                                              {{#each mess}}
+                                                       {{#if this.param}}
+               <li class="warning">{{this.msg}}</li>
+                    {{/if}}
+      
+                       {{/each}}
+                          {{#if success}}
+               <li style="color:green;">{{success}}</li>
+                           {{/if}}
                                 <button type="submit" class="btn btn-primary btn-user btn-block">
                                     Register Account
                                 </button>
