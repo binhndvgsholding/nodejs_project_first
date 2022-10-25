@@ -16,6 +16,7 @@ app.use(session({
   secret: 'codeforgeek',
   saveUninitialized: true,
   resave: true,
+  cookie: { maxAge: 60000 }
 }));
   app.use(flash());
 

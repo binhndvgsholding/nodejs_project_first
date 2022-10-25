@@ -11,9 +11,8 @@ const validateRegisterUser = () => {
 
 const validateLogin = () => {
   return [
-    body("email", "Invalid does not Empty").not().isEmpty(),
-    body("email", "Invalid email").isEmail(),
-    body("pass", "password more than 6 degits").isLength({ min: 6 }),
+    body("email", "Email không được bỏ trống").not().isEmpty(),
+    body("pass", "Mật khẩu không được bỏ trống").not().isEmpty(),
   ];
 };
 

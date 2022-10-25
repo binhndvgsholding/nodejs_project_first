@@ -19,7 +19,6 @@
     <link href="/asset/css/sb-admin-2.min.css" rel="stylesheet">
 
 </head>
-
 <body class="bg-gradient-primary">
     <div class="container">
         <!-- Outer Row -->
@@ -36,14 +35,14 @@
                                     <div class="text-center">
                                         <h1 class="h4 text-gray-900 mb-4">Welcome Back!</h1>
                                     </div>
-                                    <form class="user">
+                                    <form class="user"  method="post" action="/auth/postLogin" >
                                         <div class="form-group">
-                                            <input type="email" class="form-control form-control-user"
+                                            <input type="email" value="{{old.email}}"  name="email" class="form-control form-control-user"
                                                 id="exampleInputEmail" aria-describedby="emailHelp"
                                                 placeholder="Enter Email Address...">
                                         </div>
                                         <div class="form-group">
-                                            <input type="password" class="form-control form-control-user"
+                                            <input type="password" name="pass"  value="{{old.pass}}" class="form-control form-control-user"
                                                 id="exampleInputPassword" placeholder="Password">
                                         </div>
                                         <div class="form-group">
@@ -53,9 +52,18 @@
                                                     Me</label>
                                             </div>
                                         </div>
-                                        <a href="index.html" class="btn btn-primary btn-user btn-block">
+                                                                                 {{#each mess}}
+                                                       {{#if this.param}}
+               <li class="warning">{{this.msg}}</li>
+                    {{/if}}
+      
+                       {{/each}}
+                          {{#if success}}
+               <li style="color:green;">{{success}}</li>
+                           {{/if}}
+                                        <button  class="btn btn-primary btn-user btn-block">
                                             Login
-                                        </a>
+                                        </button>
                                         <hr>
                                         <a href="index.html" class="btn btn-google btn-user btn-block">
                                             <i class="fab fa-google fa-fw"></i> Login with Google
@@ -83,13 +91,13 @@
     </div>
 
     <!-- Bootstrap core JavaScript-->
-    <script src="/asset/vendor/jquery/jquery.min.js"></script>
-    <script src="/asset/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script type="text/babel" src="/asset/vendor/jquery/jquery.min.js"></script>
+    <script type="text/babel" src="/asset/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
     <!-- Core plugin JavaScript-->
-    <script src="/asset/vendor/jquery-easing/jquery.easing.min.js"></script>
+    <script type="text/babel" src="/asset/vendor/jquery-easing/jquery.easing.min.js"></script>
 
     <!-- Custom scripts for all pages-->
-    <script src="/asset/js/sb-admin-2.min.js"></script>
+    <script type="text/babel" src="/asset/js/sb-admin-2.min.js"></script>
 
 </body>
 

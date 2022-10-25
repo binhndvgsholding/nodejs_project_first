@@ -1,3 +1,4 @@
+// const authMiddleware = require('../app/middlewares/authMiddleware');
 const userRouter = require("./user");
 const siteRouter = require("./site");
 const authRouter = require("./auth");
