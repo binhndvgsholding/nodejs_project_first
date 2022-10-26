@@ -1,0 +1,133 @@
+
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
+
+                    <!-- Page Heading -->
+                    <h1 class="h3 mb-2 text-gray-800">Quản lý tài khoản</h1>
+                 
+                      
+                    <!-- DataTales Example -->
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold text-primary">Danh sách tài khoản </h6>
+                        </div>
+                       
+                          <form 
+                        class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-2 mw-100 navbar-search">
+                        <div class="input-group">
+                            <input type="text" value="{{oldReq.q}}" name="q" class="form-control bg-light border-1 small" placeholder="Search for..."
+                                aria-label="Search" aria-describedby="basic-addon2">
+                            <div class="input-group-append">
+                                <button class="btn btn-primary" type="submit">
+                                    <i class="fas fa-search fa-sm"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                    <thead>
+                                        <tr>
+                                            <th>Ảnh đại diện</th>
+                                            <th>Họ tên</th>
+                                            <th>Email</th>
+                                            <th>Số điện thoại</th>
+                                            <th>Trạng thái</th>
+                                            <th>Hành động</th>
+                                        </tr>
+                                    </thead>
+                                    {{!-- <tfoot>
+                                        <tr>
+                                            <th>Ảnh đại diện</th>
+                                            <th>Họ tên</th>
+                                            <th>Email</th>
+                                            <th>Số điện thoại</th>
+                                            <th>Trạng thái</th>
+                                         
+                                        </tr>
+                                    </tfoot> --}}
+                                    <tbody>
+                                        {{#each dataUser}}
+   
+                                        <tr>
+                                            <td ><img style="width: 30%;" src="/img/{{this.img}}" alt=""></td>
+                                            <td>{{this.name}}</td>
+                                            <td>{{this.email}}</td>
+                                            <td>{{this.phone}}</td>
+                                            <td>{{#ifEquals this.status  0}}
+                                                      Kich hoat
+                                                {{else }}  Tam ngung
+                                                {{/ifEquals }}
+                                            </td>
+                                            <td> 
+                                                <!-- Button trigger modal -->
+                                               <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editAcount_{{this.id}}">
+edit
+                                               </button>
+
+<!-- Modal -->
+                                               <div class="modal fade showModal"  id="editAcount_{{this.id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog  modal-lg ">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title " id="exampleModalLabel">Edit Count</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body ">
+        <form enctype="multipart/form-data" class="submit-from-modal">
+             <div class="form-group">
+    <label for="exampleInputEmail1">Ho ten</label>
+    <input type="email" class="form-control" value="{{this.name}}" name="name" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+      </div>
+    <div class="form-group">
+    <label for="exampleInputEmail1">Email</label>
+    <input type="email" class="form-control" value="{{this.email}}" name="email" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+      </div>
+       <div class="form-group">
+    <label for="exampleInputEmail1">So dien thoai</label>
+    <input type="number" class="form-control" value="{{this.phone}}" name="phone" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+      </div>
+          <div class="form-group">
+    <label for="exampleInputEmail1">Anh dai dien</label>
+    <input type="file" class="form-control" value="{{this.phone}}" name="phone" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+      </div>
+  <div class="input-group mb-3">
+
+  <div class="input-group-prepend">
+    <label class="input-group-text" for="inputGroupSelect01">Trang thai</label>
+  </div>
+
+  <select class="custom-select" id="inputGroupSelect01">
+    <option selected>Choose...</option>
+    <option {{#ifEquals this.status  0}} selected {{/ifEquals }} value="0">Kich hoat</option>
+    <option {{#ifEquals this.status  1}} selected {{/ifEquals }}  value="1">Tam ngung</option>
+  
+  </select>
+</div>
+   
+    <div class="modal-footer">
+        <button type="button"  class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="submit"  class="btn btn-primary ">Update</button>
+      </div>
+</form>
+      </div>
+     
+    </div>
+  </div>
+                                                  </div>
+</td>
+                                        </tr>
+                                        {{/each}}  
+                                 
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- /.container-fluid -->
