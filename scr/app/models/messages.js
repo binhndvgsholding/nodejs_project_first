@@ -1,15 +1,14 @@
 const { queryDB } = require("../../utils/queryDB");
 const dbconnect = require("../../config/db");
 const Querybuilder = require("./querybuilder");
-class User {
-  table = "users";
+class Messages {
+  table = "messages";
 
-  fillable = ["name", "email", "phone", "pass", "img", "status"];
+  fillable = ["sender_id", "receiver_id", "content"];
 
   getList(req, result) {
     const params = req.query;
     let sql = Querybuilder.get(this.table);
-    // sql += ` where id = 81 `
     if (params.q) {
       sql += ` where name like '%${params.q.trim()}%' `;
     }
@@ -62,7 +61,6 @@ class User {
       result(null, res);
     });
   }
-
   findUser(req, result) {
     const sql = Querybuilder.whereColum(this.table, "id", "=");
     dbconnect.query(sql, req, (err, res) => {
@@ -73,7 +71,6 @@ class User {
       result(null, res);
     });
   }
-
   checkUser(req, result) {
     const sql = Querybuilder.whereColum(this.table, "email", "=");
     dbconnect.query(sql, req, (err, res) => {
@@ -100,4 +97,4 @@ class User {
     });
   }
 }
-module.exports = new User();
+module.exports = new Messages();

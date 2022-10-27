@@ -1,0 +1,10 @@
+const express = require("express");
+const uploadImage = require("../utils/uploadMiddleware");
+const { validate } = require("../utils/validate");
+const authMiddleware = require("../app/middlewares/authMiddleware");
+const router = express.Router();
+const MessController = require("../app/controllers/MessagesController");
+router.post("/update", uploadImage.single("img"), MessController.update);
+router.get("/delete/:id", MessController.delete);
+router.get("/", MessController.index);
+module.exports = router;

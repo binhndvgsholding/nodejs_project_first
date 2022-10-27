@@ -1,0 +1,57 @@
+
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
+
+                    <!-- Page Heading -->
+                    <h1 class="h3 mb-2 text-gray-800">Nhắn tin với bạn bè</h1>
+                 
+                      
+                    <!-- DataTales Example -->
+                    <div class="card shadow mb-4 w-25">
+                        <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold text-primary">Danh sách bạn bè </h6>
+                        </div>
+                       
+                          <form 
+                        class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-2 mw-100 navbar-search">
+                        <div class="input-group">
+                            <input type="text" value="{{oldReq.q}}" name="q" class="form-control bg-light border-1 small" placeholder="Search for..."
+                                aria-label="Search" aria-describedby="basic-addon2">
+                            <div class="input-group-append">
+                                <button class="btn btn-primary" type="submit">
+                                    <i class="fas fa-search fa-sm"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </form> 
+                       <div class="card-header py-3">
+                         <span style="color: green;">{{mess}}</span>                      
+                         </div>
+                
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table">
+
+                                   <tbody>
+                                         {{#each dataUser}}
+   
+                                        <tr>
+                                            <td ><img style="width: 15%;" class="rounded-circle" src="/img/{{this.img}}" alt=""> {{this.name}}</td>
+                         
+                                            <td> 
+                                           <a  href="user/delete/{{this.id}}" class="btn btn-success btn-circle btn-sm "></a>
+                                              {{!-- <a  href="user/delete/{{this.id}}" class="btn btn-secondary btn-circle btn-sm "></a> --}}
+                                                </td>
+                                        </tr>
+                                        {{/each}}  
+ 
+                                    </tbody>
+                                </table>
+                         
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- /.container-fluid -->

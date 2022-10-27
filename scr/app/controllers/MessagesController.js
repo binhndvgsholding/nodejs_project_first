@@ -1,17 +1,18 @@
 const UserModel = require("../models/User");
+const MessModel = require("../models/messages");
 const bcrypt = require("bcrypt");
 const path = require("path");
 const uploadImage = require("../../utils/uploadMiddleware");
 const resizeImage = require("../../utils/resizeImage");
 var { validationResult } = require("express-validator");
-class UserController {
+class MessagesController {
   index(req, res) {
     UserModel.getList(req, (err, data) => {
       if (err) res.redirect("/404");
       else {
         const success = req.flash("success");
         res.locals.oldReq = req.query;
-        res.render("pages/acount/index", { dataUser: data, mess: success });
+        res.render("pages/messages/index", { dataUser: data, mess: success });
       }
     });
   }
@@ -30,7 +31,6 @@ class UserController {
         UserModel.update(formData, (err, data) => {
           if (err) res.redirect("/404");
           else {
-            req.session.loggedin = true;
             req.flash("success", "update thành công");
             res.redirect("back");
           }
@@ -49,4 +49,4 @@ class UserController {
     });
   }
 }
-module.exports = new UserController();
+module.exports = new MessagesController();

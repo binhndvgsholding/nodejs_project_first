@@ -13,3 +13,13 @@
     <!-- Page level custom scripts -->
     <script src="/asset/js/demo/chart-area-demo.js"></script>
     <script src="/asset/js/demo/chart-pie-demo.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+     <script>
+      const socket = io();
+      $(document).ready(function(){
+        let user_id ="{{ user.id }}"
+        socket.on('connect',()=>{
+            socket.emit('user_connect',user_id)
+        })
+      })
+    </script>
