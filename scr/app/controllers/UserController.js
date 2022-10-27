@@ -6,6 +6,7 @@ const resizeImage = require("../../utils/resizeImage");
 var { validationResult } = require("express-validator");
 class UserController {
   index(req, res) {
+    req.query.id = res.locals.user.id;
     UserModel.getList(req, (err, data) => {
       if (err) res.redirect("/404");
       else {

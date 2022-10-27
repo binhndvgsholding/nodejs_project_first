@@ -6,5 +6,5 @@ const router = express.Router();
 const MessController = require("../app/controllers/MessagesController");
 router.post("/update", uploadImage.single("img"), MessController.update);
 router.get("/delete/:id", MessController.delete);
-router.get("/", MessController.index);
+router.get("/", authMiddleware.loggedin, MessController.index);
 module.exports = router;

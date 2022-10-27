@@ -9,9 +9,9 @@ class User {
   getList(req, result) {
     const params = req.query;
     let sql = Querybuilder.get(this.table);
-    // sql += ` where id = 81 `
+    sql += ` where id != ${params.id} `;
     if (params.q) {
-      sql += ` where name like '%${params.q.trim()}%' `;
+      sql += ` AND name LIKE '%${params.q.trim()}%' `;
     }
     if (params.limit) {
       sql += ` LIMIT ${params.limit} OFFSET 1`;

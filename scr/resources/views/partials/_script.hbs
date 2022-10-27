@@ -18,8 +18,22 @@
       const socket = io();
       $(document).ready(function(){
         let user_id ="{{ user.id }}"
-        socket.on('connect',()=>{
-            socket.emit('user_connect',user_id)
+        
+        socket.on('connect', ()=>{
+            socket.emit('user_connect',user_id);
+        })
+      
+         socket.on('updateUserStatus', (users)=>{
+          let useStatusIcon = $('.user-status-icon');
+          useStatusIcon.removeClass('btn-success');
+            useStatusIcon.addClass('btn-secondary')
+            $.each(users, function(key, value){
+              if(value !=null && value != 0){
+                let userIcon = $('.user-icon-'+key)
+                  userIcon.removeClass('btn-secondary');
+                 userIcon.addClass('btn-success')
+              }
+            })
         })
       })
     </script>
