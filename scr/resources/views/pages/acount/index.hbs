@@ -23,7 +23,11 @@
                                 </button>
                             </div>
                         </div>
-                    </form>
+                    </form> 
+                       <div class="card-header py-3">
+  <span style="color: green;">{{mess}}</span>                      
+    </div>
+                
                         <div class="card-body">
                             <div class="table-responsive">
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
@@ -77,10 +81,11 @@ edit
         </button>
       </div>
       <div class="modal-body ">
-        <form enctype="multipart/form-data" class="submit-from-modal">
+        <form method="post" action="/user/update" enctype="multipart/form-data" class="submit-from-modal">
              <div class="form-group">
     <label for="exampleInputEmail1">Ho ten</label>
-    <input type="email" class="form-control" value="{{this.name}}" name="name" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+    <input type="number" hidden  value="{{this.id}}" name="id" >
+    <input type="text" class="form-control" value="{{this.name}}" name="name" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
       </div>
     <div class="form-group">
     <label for="exampleInputEmail1">Email</label>
@@ -88,11 +93,11 @@ edit
       </div>
        <div class="form-group">
     <label for="exampleInputEmail1">So dien thoai</label>
-    <input type="number" class="form-control" value="{{this.phone}}" name="phone" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+    <input type="text" class="form-control" value="{{this.phone}}" name="phone" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
       </div>
           <div class="form-group">
     <label for="exampleInputEmail1">Anh dai dien</label>
-    <input type="file" class="form-control" value="{{this.phone}}" name="phone" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+    <input type="file" class="form-control" name="img" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
       </div>
   <div class="input-group mb-3">
 
@@ -100,7 +105,7 @@ edit
     <label class="input-group-text" for="inputGroupSelect01">Trang thai</label>
   </div>
 
-  <select class="custom-select" id="inputGroupSelect01">
+  <select name="status" class="custom-select" id="inputGroupSelect01">
     <option selected>Choose...</option>
     <option {{#ifEquals this.status  0}} selected {{/ifEquals }} value="0">Kich hoat</option>
     <option {{#ifEquals this.status  1}} selected {{/ifEquals }}  value="1">Tam ngung</option>
@@ -118,6 +123,7 @@ edit
     </div>
   </div>
                                                   </div>
+                                                  <a href="user/delete/{{this.id}}" class="btn btn-danger">Xóa</a>
 </td>
                                         </tr>
                                         {{/each}}  
