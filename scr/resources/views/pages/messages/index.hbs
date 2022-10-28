@@ -274,8 +274,11 @@
 	                          background: linear-gradient(to right, #91EAE4, #86A8E7, #7F7FD5);" class="card-footer"></div>
 				</div></div>
 				<div class="col-md-8 col-xl-6 chat">
-					<div class="card">
-						<div style="
+				
+                                                     <div class="card">
+						
+							{{#ifEquals this.status  0}}
+							<div style="
 			               background: #7F7FD5;
 	                        background: -webkit-linear-gradient(to right, #91EAE4, #86A8E7, #7F7FD5);
 	                         background: linear-gradient(to right, #91EAE4, #86A8E7, #7F7FD5);" class="card-header msg_head">
@@ -338,7 +341,24 @@
 								</div>
 							</div>
 						</div>
+						   {{else }} 
+						   <div style="
+			               background: #7F7FD5;
+	                        background: -webkit-linear-gradient(to right, #91EAE4, #86A8E7, #7F7FD5);
+	                         background: linear-gradient(to right, #91EAE4, #86A8E7, #7F7FD5);" class="card-header msg_head">
+							<h2>Chat box</h2>
+							<img style="width:100%;" src="https://cdn.viettelstore.vn/Images/Product/ProductArchive/456/0502/lam-anh-gif1.gif" alt="">
+						   <div style="
+			                    background: #7F7FD5;
+	                            background: -webkit-linear-gradient(to right, #91EAE4, #86A8E7, #7F7FD5);
+	                            background: linear-gradient(to right, #91EAE4, #86A8E7, #7F7FD5);" class="card-footer">
+						
+					     	</div>
+						    
+                                                {{/ifEquals }}
 					</div>
+                                             
+					
 				</div>
 			</div>
 		</div>
