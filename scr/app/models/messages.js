@@ -4,7 +4,7 @@ const Querybuilder = require("./querybuilder");
 class Messages {
   table = "messages";
 
-  fillable = ["sender_id", "receiver_id", "content"];
+  fillable = ["sender_id", "receiver_id", "content","created_at"];
 
   getList(req, result) {
     const params = req.query;
@@ -26,7 +26,7 @@ class Messages {
 
   insert(req, result) {
     const value = [
-      [req.name, req.email, req.phone, req.pass, req.img, req.status],
+      [req.sender_id, req.receiver_id, req.content, req.created_at],
     ];
     const sql = Querybuilder.insert(this.table, this.fillable);
     dbconnect.query(sql, [value], (err, res) => {
