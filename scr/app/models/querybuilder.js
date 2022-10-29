@@ -28,7 +28,7 @@ class Querybuilder {
   }
 
   hasOne(){
-    
+
   }
   // dung de phaan trang
 }

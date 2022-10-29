@@ -36,7 +36,7 @@ $(document).ready(function(){
      `<div class="d-flex justify-content-end mb-4">
      <div class="msg_cotainer_send">
          ${mess}
-         <span class="msg_time_send">8:55 AM, Today</span>
+         <span class="msg_time_send"></span>
      </div>
      <div class="img_cont_msg">
         <img src="/img/${user_img}" class="rounded-circle user_img_msg">
@@ -55,11 +55,11 @@ $(document).ready(function(){
      showMess += 
      `<div class="d-flex justify-content-start mb-4">
      <div class="img_cont_msg">
-         <img src="/img/${data.receiver_imgff}" class="rounded-circle user_img_msg">
+         <img src="/img/${data.receiver_img}" class="rounded-circle user_img_msg">
      </div>   
      <div class="msg_cotainer">
        ${data.content}
-         <span class="msg_time">8:40 AM, Today</span>
+         <span class="msg_time"></span>
      </div>
      </div>`;
      document.querySelector('.show-mess-user-private').innerHTML +=showMess
