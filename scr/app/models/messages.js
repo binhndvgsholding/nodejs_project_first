@@ -6,20 +6,15 @@ class Messages {
 
   fillable = ["sender_id", "receiver_id", "content","created_at"];
 
-  getList(req, result) {
-    const params = req.query;
-    let sql = Querybuilder.get(this.table);
-    if (params.q) {
-      sql += ` where name like '%${params.q.trim()}%' `;
-    }
-    if (params.limit) {
-      sql += ` LIMIT ${params.limit} OFFSET 1`;
-    }
-    dbconnect.query(sql, (err, res) => {
+  getMessUser(req, result) {
+    let sql =  `SELECT m.*,u.name,u.img, u.id as usersId FROM messages as m JOIN users as u ON m.sender_id= u.id where m.sender_id IN (${req}) And m.receiver_id IN (${req}) `;
+    // Querybuilder.whereAndColum(this.table,['sender_id','receiver_id'],['=','=']);
+    dbconnect.query(sql,(err, res) => {
       if (err) {
         result(err, null);
         return;
       }
+      
       result(null, res);
     });
   }
@@ -61,18 +56,9 @@ class Messages {
       result(null, res);
     });
   }
-  findUser(req, result) {
-    const sql = Querybuilder.whereColum(this.table, "id", "=");
-    dbconnect.query(sql, req, (err, res) => {
-      if (err) {
-        result(err, null);
-        return;
-      }
-      result(null, res);
-    });
-  }
-  checkUser(req, result) {
-    const sql = Querybuilder.whereColum(this.table, "email", "=");
+  
+  whereReceiver(req, result) {
+    const sql = Querybuilder.whereColum(this.table, "receiver_id", "=");
     dbconnect.query(sql, req, (err, res) => {
       if (err) {
         result(err, null);
@@ -82,19 +68,5 @@ class Messages {
     });
   }
 
-  login(req, result) {
-    const sql = Querybuilder.whereAndColum(
-      this.table,
-      ["email", "pass"],
-      ["=", "="]
-    );
-    dbconnect.query(sql, req, (err, res) => {
-      if (err) {
-        result(err, null);
-        return;
-      }
-      result(null, res);
-    });
-  }
 }
 module.exports = new Messages();

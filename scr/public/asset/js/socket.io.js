@@ -22,11 +22,12 @@ $(document).ready(function(){
   // send mess private len serve
   $('.send-mess-user').click(function(){
     var mess = $('textarea[name=messagesUser]').val();
-
+    var receiverId =$('textarea[name=messagesUser]').data('id')
     socket.emit('send_message_private',
      {
         sender_id : user_id,
-        receiver_id:82,
+        receiver_img :user_img,
+        receiver_id:receiverId,
         content: mess,
         created_at: new Date()
      })
@@ -38,9 +39,9 @@ $(document).ready(function(){
          <span class="msg_time_send">8:55 AM, Today</span>
      </div>
      <div class="img_cont_msg">
-        <img src="" class="rounded-circle user_img_msg">
+        <img src="/img/${user_img}" class="rounded-circle user_img_msg">
      </div>
- </div>`;
+    </div>`;
      document.querySelector('.show-mess-user-private').innerHTML +=showMess
     
      $('textarea[name=messagesUser]').val('');
@@ -54,7 +55,7 @@ $(document).ready(function(){
      showMess += 
      `<div class="d-flex justify-content-start mb-4">
      <div class="img_cont_msg">
-         <img src="https://static.turbosquid.com/Preview/001292/481/WV/_D.jpg" class="rounded-circle user_img_msg">
+         <img src="/img/${data.receiver_imgff}" class="rounded-circle user_img_msg">
      </div>   
      <div class="msg_cotainer">
        ${data.content}

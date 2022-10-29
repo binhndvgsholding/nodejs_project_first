@@ -7,13 +7,33 @@ const resizeImage = require("../../utils/resizeImage");
 var { validationResult } = require("express-validator");
 class MessagesController {
   index(req, res) {
+  const receiver=[]
     req.query.id = res.locals.user.id;
-    UserModel.getList(req, (err, data) => {
+    UserModel.getList(req, (err, dataUser) => {
       if (err) res.redirect("/404");
       else {
-        const success = req.flash("success");
         res.locals.oldReq = req.query;
-        res.render("pages/messages/index", { dataUser: data, mess: success });
+        if(!req.query.id_user) res.render("pages/messages/index", { dataUser: dataUser,}); 
+        else{
+        UserModel.findUser(req.query.id_user,(err,res)=>{
+          receiver.push(res[0])
+        }),
+        MessModel.getMessUser([res.locals.user.id,req.query.id_user],
+             (err, dataMessUser)=>{
+              if (err) res.redirect("/404");
+              else{
+              console.log(dataMessUser);
+                 res.render("pages/messages/index",
+                  { 
+                     status: true,
+                     dataUser: dataUser,
+                     dataMessUser: dataMessUser,
+                     dataReceiver : receiver[0],
+                  });
+            
+             } 
+          })
+        }
       }
     });
   }

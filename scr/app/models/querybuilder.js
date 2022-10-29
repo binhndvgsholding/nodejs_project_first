@@ -27,6 +27,9 @@ class Querybuilder {
     return `SELECT * FROM ${table} WHERE  ${fillable[0]}  ${compare[0]}  ? AND ${fillable[1]}  ${compare[1]}  ? `;
   }
 
+  hasOne(){
+    
+  }
   // dung de phaan trang
 }
 

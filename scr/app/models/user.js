@@ -10,6 +10,7 @@ class User {
     const params = req.query;
     let sql = Querybuilder.get(this.table);
     sql += ` where id != ${params.id} `;
+    
     if (params.q) {
       sql += ` AND name LIKE '%${params.q.trim()}%' `;
     }
