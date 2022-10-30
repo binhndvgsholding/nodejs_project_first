@@ -261,7 +261,7 @@
 									<p class="user-status-text user-text-{{this.id}}">Offline</p>
 								</div>
 							</div>
-						</li>
+						    </li>
                             {{/each}}  
 
 						</ui>
@@ -303,11 +303,11 @@
 								</ul>
 							</div>
 						</div>
-						<div class="show-mess-user-private card-body msg_card_body">
+						<div class="show-mess-user-private-{{ dataReceiver.id }} card-body msg_card_body">
 						
 							  {{#each dataMessUser}}
-							  
-							{{#if (eq this.sender_id  ../dataReceiver.id)}}
+
+							  {{#if (eq this.sender_id  ../dataReceiver.id)}}
 							 	<div class="d-flex justify-content-start mb-4">
 								<div class="img_cont_msg">
 									<img src="/img/{{this.img}}" class="rounded-circle user_img_msg">
