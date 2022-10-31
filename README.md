@@ -4,6 +4,7 @@
 # clone the project  
 git clone https://github.com/binhndvgsholding/nodejs_project_first.git
 
+#
 # install dependency
 npm install
 
