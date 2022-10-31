@@ -11,7 +11,7 @@ npm install
 # Tạo file node_first trong xampp và install migrations 
 npm start up
 
-# Hoặc export file node_first.sql vào xampp .
+# Hoặc import file node_first.sql vào xampp .
 
 # run project
 npm start
