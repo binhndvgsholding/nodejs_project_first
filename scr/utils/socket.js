@@ -1,6 +1,6 @@
 
-// const MessController = require("../app/controllers/MessagesController");
 const MessModel = require("../app/models/messages");
+const UserModel = require("../app/models/user");
 const moment = require('moment-timezone');
 const socketIo = (server)=>{
   // const server = require("http").createServer(app);
@@ -13,11 +13,12 @@ const socketIo = (server)=>{
 
   // user onl
   const users = [];
+  const req= {};
   io.on("connection", (socket) => {
     socket.on("user_connect", (user_id) => {
       users[user_id] = socket.id;
       io.emit("updateUserStatus", users);
-      console.log("A User connected:" + user_id);
+      // console.log("A User connected:" + user_id);
     });
     
     // user offline
@@ -34,13 +35,23 @@ const socketIo = (server)=>{
       const date = data.created_at;
       const zone = 'Asia/Ho_Chi_Minh';
       const utcDate = moment.tz(date, zone).utc().format("YYYY-MM-DD HH:mm:ss");
-      console.log(utcDate);
+      // console.log(utcDate);
       var socketId = users[data.receiver_id];
-      io.to(socketId).emit('new_message_private',data);
       data.created_at= utcDate
-      MessModel.insert(data,(err,res)=>{
+      MessModel.insert(data, async (err,res)=>{
         if (err) res.redirect("/404");
+        await res
+        req.id =  data.receiver_id;
+        UserModel.getListUserMess(req,  (err, dataUser)=>{
+            if (err) res.redirect("/404");
+          else{
+            io.to(socketId).emit('new_message_private',data,dataUser);
+          } 
+        })
       })
+    
+     
+     
     })
   });
 }

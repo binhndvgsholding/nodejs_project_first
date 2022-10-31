@@ -25,6 +25,17 @@ class User {
       result(null, res);
     });
   }
+  getListUserMess(req,result){
+    const params = req;
+    let sql =`SELECT users.id as userId, users.name, users.img,messages.* FROM users JOIN messages on users.id = messages.receiver_id OR users.id =messages.sender_id WHERE users.id !=${params.id} AND ( messages.sender_id = ${params.id} OR messages.receiver_id=${params.id} ) AND messages.id IN (SELECT max(messages.id) as maxId FROM users JOIN messages on users.id = messages.receiver_id OR users.id =messages.sender_id WHERE users.id !=${params.id} AND ( messages.sender_id =${params.id} OR messages.receiver_id=${params.id} ) GROUP BY users.id) ORDER BY messages.created_at DESC`
+    dbconnect.query(sql, (err, res) => {
+      if (err) {
+        result(err, null);
+        return;
+      }
+      result(null, res);
+    });
+  }
 
   insert(req, result) {
     const value = [

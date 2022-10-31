@@ -247,20 +247,22 @@
                         </div>
 					</div>
 					<div  class="card-body contacts_body">
-						<ui class="contacts">
+						<ui class="show-list-user-mess contacts">
 							
                             {{#each dataUser}}
                               <li class="active">
-							<div class="d-flex bd-highlight">
-								<div class="img_cont">  <a href="?id_user={{this.id}}"><img src="/img/{{this.img}}" class="rounded-circle user_img"></a> 
+							   <div class="d-flex bd-highlight">
+								<div class="img_cont">  <a href="?id_user={{this.userId}}"><img src="/img/{{this.img}}" class="rounded-circle user_img"></a> 
 								
-									<span class="user-status-icon online_icon offline user-icon-{{this.id}}"></span>
+									<span class="user-status-icon online_icon offline user-icon-{{this.userId}}"></span>
 								</div>
 								<div class="user_info">
-							<a href="?id_user={{this.id}}"><span>{{this.name}}</span></a>
-									<p class="user-status-text user-text-{{this.id}}">Offline</p>
-								</div>
-							</div>
+							    <a href="?id_user={{this.userId}}"><span>{{this.name}}</span></a>
+									{{!-- <p class="user-status-text user-text-{{this.userId}}">Offline</p> --}}
+							     	<p>{{this.content}}</p>
+							    </div>
+						
+							   </div>
 						    </li>
                             {{/each}}  
 
@@ -273,7 +275,6 @@
 			        </div>
 				</div>
 			       	<div class="col-md-8 col-xl-6 chat">
-				
                                                      <div class="card">
 						
 							{{#if status }}
@@ -328,8 +329,7 @@
 								</div>
 							</div>
 							 {{/if }}
-						
-							
+	
 					       {{/each}}  
 						</div>
 						<div style="
@@ -338,7 +338,8 @@
 	                            background: linear-gradient(to right, #91EAE4, #86A8E7, #7F7FD5);" class="card-footer">
 							<div class="input-group">
 								<div class="input-group-append">
-									<span class="input-group-text attach_btn"><i class="fas fa-paperclip"></i></span>
+									{{!-- <i class="fas fa-paperclip"></i> --}}
+									<span class="input-group-text attach_btn"></span>
 								</div>
 								<textarea name="messagesUser" data-id="{{dataReceiver.id}}" class="form-control type_msg" placeholder="Type your message..."></textarea>
 								<div class="input-group-append">
@@ -362,8 +363,6 @@
 						    
                                                 {{/if }}
 					</div>
-                                             
-					
 				</div>
 			</div>
 		</div>

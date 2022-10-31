@@ -1,4 +1,4 @@
-$(document).ready(function () {
+$(document).ready( function () {
   socket.on("connect", () => {
     socket.emit("user_connect", user_id);
   });
@@ -20,7 +20,7 @@ $(document).ready(function () {
   });
 
   // send mess private len serve
-  $(".send-mess-user").click(function () {
+  $(".send-mess-user").click(  function () {
     var mess = $("textarea[name=messagesUser]").val();
     var receiverId = $("textarea[name=messagesUser]").data("id");
     socket.emit("send_message_private", {
@@ -29,6 +29,27 @@ $(document).ready(function () {
       receiver_id: receiverId,
       content: mess,
       created_at: new Date(),
+    });
+    socket.on("new_message_private", async (data,dataUser) => {
+      var showUser = dataUser.map( (value,index)=>{
+        console.log(value);
+         return `<li class="active">
+         <div class="d-flex bd-highlight">
+        <div class="img_cont"> 
+        <a href="?id_user=${value.userId}"><img src="/img/${value.img}" class="rounded-circle user_img"></a> 
+          <span class="user-status-icon online_icon  user-icon-${value.userId}"></span>
+        </div>
+        <div class="user_info">
+          <a href="?id_user=${value.userId}"><span>${value.name}</span></a>
+          
+             <p>${value.content} </p>
+          </div>
+    
+        </div>
+        </li>`
+       })
+    
+      document.querySelector('.show-list-user-mess').innerHTML= await showUser.join('')
     });
     var showMess = "";
     showMess += `<div class="d-flex justify-content-end mb-4">
@@ -48,10 +69,32 @@ $(document).ready(function () {
     return false;
   });
 
+
+
   //listen form serve
-  socket.on("new_message_private", (data) => {
-    var showMess = "";
-    showMess += `<div class="d-flex justify-content-start mb-4">
+  socket.on("new_message_private", async (data,dataUser) => {
+    var showUser = dataUser.map( (value,index)=>{
+      console.log(value);
+       return `<li class="active">
+       <div class="d-flex bd-highlight">
+      <div class="img_cont"> 
+      <a href="?id_user=${value.userId}"><img src="/img/${value.img}" class="rounded-circle user_img"></a> 
+        <span class="user-status-icon online_icon  user-icon-${value.userId}"></span>
+      </div>
+      <div class="user_info">
+        <a href="?id_user=${value.userId}"><span>${value.name}</span></a>
+        
+           <p>${value.content} </p>
+        </div>
+  
+      </div>
+      </li>`
+     })
+  
+    document.querySelector('.show-list-user-mess').innerHTML= await showUser.join('')
+  
+    var  showMess = "";
+     showMess += `<div class="d-flex justify-content-start mb-4">
      <div class="img_cont_msg">
          <img src="/img/${data.receiver_img}" class="rounded-circle user_img_msg">
      </div>   
@@ -60,8 +103,10 @@ $(document).ready(function () {
          <span class="msg_time"></span>
      </div>
      </div>`;
-    document.querySelector(
+     document.querySelector(
       ".show-mess-user-private-" + data.sender_id
-    ).innerHTML += showMess;
+    ).innerHTML +=  showMess;
+ 
+
   });
 });
