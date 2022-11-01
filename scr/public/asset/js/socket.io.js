@@ -1,3 +1,5 @@
+
+
 $(document).ready( function () {
   socket.on("connect", () => {
     socket.emit("user_connect", user_id);
@@ -20,24 +22,27 @@ $(document).ready( function () {
   });
 
   // send mess private len serve
-  $(".send-mess-user").click(  function () {
+  $(".send-mess-user").click( async  function () {   
     var mess = $("textarea[name=messagesUser]").val();
     var receiverId = $("textarea[name=messagesUser]").data("id");
-    socket.emit("send_message_private", {
+if(mess ==  ''){
+  return false
+}
+    await socket.emit("send_message_private", {
       sender_id: user_id,
       receiver_img: user_img,
       receiver_id: receiverId,
       content: mess,
       created_at: new Date(),
     });
-    socket.on("new_message_private", async (data,dataUser) => {
+    socket.on("new_message_private_me", async (dataUser) => {
       var showUser = dataUser.map( (value,index)=>{
         console.log(value);
          return `<li class="active">
          <div class="d-flex bd-highlight">
         <div class="img_cont"> 
         <a href="?id_user=${value.userId}"><img src="/img/${value.img}" class="rounded-circle user_img"></a> 
-          <span class="user-status-icon online_icon  user-icon-${value.userId}"></span>
+          <span class="user-status-icon online_icon offline user-icon-${value.userId}"></span>
         </div>
         <div class="user_info">
           <a href="?id_user=${value.userId}"><span>${value.name}</span></a>
@@ -68,8 +73,6 @@ $(document).ready( function () {
 
     return false;
   });
-
-
 
   //listen form serve
   socket.on("new_message_private", async (data,dataUser) => {
@@ -110,3 +113,5 @@ $(document).ready( function () {
 
   });
 });
+
+

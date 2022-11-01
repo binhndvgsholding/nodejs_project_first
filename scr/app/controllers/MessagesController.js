@@ -8,12 +8,20 @@ var { validationResult } = require("express-validator");
 class MessagesController {
   index(req, res) {
   const receiver=[]
+  const users=[]
     req.id = res.locals.user.id;
+    if(req.query.q){
+      req.query.id = res.locals.user.id;
+      UserModel.getList(req, (err, listUser) => {
+        users.push(listUser)
+      })
+    }
+
     UserModel.getListUserMess(req, (err, dataUser) => {
       if (err) res.redirect("/404");
       else {
         res.locals.oldReq = req.query;
-        if(!req.query.id_user) res.render("pages/messages/index", { dataUser: dataUser,}); 
+        if(!req.query.id_user) res.render("pages/messages/index", { dataUser: dataUser,userSearch:users[0]}); 
         else{
         UserModel.findUser(req.query.id_user,(err,res)=>{
           receiver.push(res[0])
@@ -22,12 +30,14 @@ class MessagesController {
              (err, dataMessUser)=>{
               if (err) res.redirect("/404");
               else{
+
                  res.render("pages/messages/index",
                   { 
                      status: true,
                      dataUser: dataUser,
                      dataMessUser: dataMessUser,
                      dataReceiver : receiver[0],
+                     userSearch:users[0]
                   });
             
              } 

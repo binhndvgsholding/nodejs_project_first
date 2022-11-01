@@ -18,7 +18,6 @@ const socketIo = (server)=>{
     socket.on("user_connect", (user_id) => {
       users[user_id] = socket.id;
       io.emit("updateUserStatus", users);
-      // console.log("A User connected:" + user_id);
     });
     
     // user offline
@@ -27,27 +26,39 @@ const socketIo = (server)=>{
       users.splice(i, 1, 0);
       io.emit("updateUserStatus", users);
   
-      console.log("A User Disconnect");
     });
 
     //server nhan mess tu user
-    socket.on('send_message_private',(data)=>{
+    socket.on('send_message_private',  (data)=>{
+     
       const date = data.created_at;
       const zone = 'Asia/Ho_Chi_Minh';
       const utcDate = moment.tz(date, zone).utc().format("YYYY-MM-DD HH:mm:ss");
       // console.log(utcDate);
       var socketId = users[data.receiver_id];
+      var socketIdSender = users[data.sender_id];
+
       data.created_at= utcDate
       MessModel.insert(data, async (err,res)=>{
         if (err) res.redirect("/404");
         await res
         req.id =  data.receiver_id;
-        UserModel.getListUserMess(req,  (err, dataUser)=>{
+        UserModel.getListUserMess(req, async (err, dataUser)=>{
             if (err) res.redirect("/404");
           else{
-            io.to(socketId).emit('new_message_private',data,dataUser);
+           await io.to(socketId).emit('new_message_private',data,dataUser);
+           io.emit("updateUserStatus", users);
           } 
         })
+        req.id =  data.sender_id;
+        UserModel.getListUserMess(req, async  (err, dataUser)=>{
+          if (err) res.redirect("/404");
+          else{
+          await  io.to(socketIdSender).emit('new_message_private_me',dataUser);
+          io.emit("updateUserStatus", users);
+          } 
+        })
+           
       })
     
      
