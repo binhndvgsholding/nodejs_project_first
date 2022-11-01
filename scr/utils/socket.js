@@ -64,6 +64,30 @@ const socketIo = (server)=>{
      
      
     })
+
+    // serve nhan image tu user
+
+    socket.on("sendPhoto", function(data){
+      var socketId = users[data.receiver_id];
+      var socketIdSender = users[data.sender_id];
+      var guess = data.base64.match(/^data:image\/(png|jpeg);base64,/)[1];
+      var ext = "";
+      switch(guess) {
+        case "png"  : ext = ".png"; break;
+        case "jpeg" : ext = ".jpg"; break;
+        default     : ext = ".bin"; break;
+      }
+      var savedFilename = "/img/"+randomString(10)+ext;
+      fs.writeFile(__dirname+"/public"+savedFilename, getBase64Image(data.base64), 'base64', function(err) {
+        if (err !== null)
+          console.log(err);
+        else
+          io.to(socketId).emit("receivePhoto", {
+            path: savedFilename,
+          });
+          console.log("Send photo success!");
+      });
+    });
   });
 }
 
